@@ -5,5 +5,6 @@ echo "Testing";
 
 <html>
 <head>
+<title>Spending</title>
 </head>
 </html>
