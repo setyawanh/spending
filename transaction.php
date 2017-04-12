@@ -15,17 +15,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Category</title>
+<title>Transaction</title>
 </head>
 
 <body>
 
 
 <div id="col-add">
-	<h2>Add Category</h2>
+	<h2>Add Transaction</h2>
 	<form method="post">
 	Category
-	<input type="text" name="name" value=<?=$name_cat?>>
+	<select name="category">
+	<?php
+		$query=mysql_query("select * from category order by category asc") or die(mysql_error());
+		while ($row=mysql_fetch_row($query)) {
+			echo "<option value=$row[0]>$row[1]</option>";
+		}
+	?>
+	</select>
+	Amount
+	<input type="number" name="amount" value=<?=$name_cat?>>
 	<input type="submit" value="submit" name="submit">
 	</form>
 </div>
@@ -36,22 +45,23 @@
 	<table border="1">
 		<thead>
 			<th>No</th>
+			<th>Amount</th>
+			<th>Timestamp</th>
 			<th>Category</th>
-			<th>Action</th>
 		</thead>
 
 <?php
 // get data from table
 
-$sql=mysql_query("select * from category order by category asc") or die(mysql_error());
+$sql=mysql_query("select transaction.*,category.category from transaction,category where transaction.id_category=category.id_category order by transaction.timestamp desc") or die(mysql_error());
 $no=1;
 while($row=mysql_fetch_row($sql)){
 	echo"
 		<tr>
 			<td>$no</td>
 			<td>$row[1]</td>
-			<td><a href='?edit=$row[0]'>Edit</a>
-			<a href='?del=$row[0]'>Hapus</a></td>
+			<td>$row[4]</td>
+			<td>$row[5]</td>
 		</tr>
 	";	
 	$no++;
@@ -63,36 +73,23 @@ while($row=mysql_fetch_row($sql)){
 
 </html> 
 
-
 <?php
-// after user hit submit
-
 if(isset($_POST['submit'])){
-	$category=$_POST['name']; // ambil input nama kategori
+	$category=$_POST['category'];
+	$amount=$_POST['amount']; // ambil input nama kategori
 	if(!isset($_GET['edit'])){ // jika di url tidak ada parameter edit
-		$query=mysql_query("insert into category (category) values ('$category')") or die(mysql_error());
+		$query=mysql_query("insert into transaction (amount,id_category) values ('$amount','$category')") or die(mysql_error());
 		if($query){
-			header("Location: category.php");
+			header("Location: transaction.php");
 			die();
 		}
 	}else{		// jika di url ada parameter edit
 		$id=$_GET['edit'];
 		$query=mysql_query("update category set category='$category' where id_category='$id'") or die(mysql_error());
 		if($query){
-			header("Location: category.php");
+			header("Location: transaction.php");
 			die();
 		}
 	}
 }
-
-if(isset($_GET['del'])){ // cek jika diurl ada parameter del, jika ada hapus data dari tabel category sesuai id category
-	$id=$_GET['del'];
-	$query=mysql_query("delete from category where id_category='$id'") or die(mysql_error());	
-	if($query){
-		header("Location: category.php");
-		die();
-	}
-}
-
-
 ?>
