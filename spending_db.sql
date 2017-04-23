@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2017 at 03:43 PM
+-- Generation Time: Apr 23, 2017 at 11:42 AM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -60,11 +60,23 @@ CREATE TABLE `pic` (
 
 CREATE TABLE `transaction` (
   `id_trx` int(11) NOT NULL,
-  `trx` varchar(50) NOT NULL,
-  `type` tinyint(1) NOT NULL,
+  `amount` varchar(50) NOT NULL,
+  `type` tinyint(1) NOT NULL DEFAULT '2',
   `id_category` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transaction`
+--
+
+INSERT INTO `transaction` (`id_trx`, `amount`, `type`, `id_category`, `timestamp`) VALUES
+(1, '5000', 2, 4, '2017-03-31 13:09:53'),
+(2, '2000', 2, 4, '2017-04-12 17:00:00'),
+(3, '3500', 2, 5, '2017-04-12 13:12:36'),
+(4, '7000', 2, 4, '2017-04-22 16:14:09'),
+(5, '10000', 2, 4, '2017-04-23 07:34:43'),
+(6, '7000', 2, 5, '2017-04-23 07:34:58');
 
 --
 -- Indexes for dumped tables
@@ -106,7 +118,7 @@ ALTER TABLE `pic`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id_trx` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_trx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
