@@ -1,3 +1,8 @@
+<?php
+	include_once("api.php"); //include koneksi
+?>
+
+<!DOCTYPE html>
 <html>
 <head>
 <title>Spending</title>
@@ -11,8 +16,8 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo">Logo Spending</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="sass.html">Spending1</a></li>
-        <li><a href="badges.html">Spending2</a></li>
+        <li><a href="transaction.php">Transaction</a></li>
+        <li><a href="category.php">Category</a></li>
         <li><a href="collapsible.html">Log Out</a></li>
       </ul>
     </div>
@@ -112,7 +117,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
     	// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-    		$('#trxmodal').modal();
+    		$('.modal').modal(); //diganti .modal
     		$('select').material_select();
   		});
 	</script>
